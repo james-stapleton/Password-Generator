@@ -42,36 +42,28 @@
   length = prompt("Enter length of password between 8" +
                   "and 128");
   while (length <8 || length > 128) { //verify the length of the password. If out of bounds, prompt again
-    length = prompt("Enter length of password between 8" +
-                  " and 128 characters");
+    length = prompt("Enter length of password between 8 and 128 characters")     
   }
   choices[4] = length;
   }
   
   // function to generate and return a random password as a string
   var generatePassword = function() {
-    for (var i = 0; i<choices.length-1; i++) {
-      if (choices[i]) {
-        console.log("inside if loop, iteration: " + i );
+    for (var i = 0; i<choices.length-1; i++) { //loop through the choices array checking for a true value 
+      if (choices[i]) { //if the value is true, concatenate the associated array from the characterSets array using the index variable
+        console.log("inside if loop, iteration: " + i ); //debugging
         var select = characterSets[i];
         characterBank = characterBank.concat(select);
         console.log(select); // debugging
       }
     }
-    var index = 0;
-    for (var j = 0; j<length; j++) {
-      index = Math.floor(Math.random() * characterBank.length);
-      randomPassword = randomPassword + characterBank[index]; 
-      console.log(characterBank[index]);
-      console.log(randomPassword);
+    var index = 0; //index variable into characterBank array that will be assigned a random value 
+    for (var j = 0; j<length; j++) {//run the loop as many times as the length the user selected 
+      index = Math.floor(Math.random() * characterBank.length); //index must be random and within the range of the array
+      randomPassword = randomPassword + characterBank[index]; //add the new character to the string
     }
     return randomPassword;
   }
-
-  // generatePassword();
-  
-  // console.log("This should be an array of all the selected characters");
-  // console.log(characterBank);
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -80,7 +72,6 @@ var generateBtn = document.querySelector("#generate");
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
 
 }
