@@ -13,6 +13,10 @@
   var numericCharacters = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   var specialCharacters = ["!", "@", "#", "$", "%", "^", "&",
                               "*", "(", ")"]
+  var characterSets = [lowerCharacters, upperCharacters, numericCharacters, specialCharacters]; //array of arrays, used for random password generation
+  var characterBank = []; //empty array to concatenate previous arrays into based on user selections
+  var randomPassword = "";//emply string to store the randomly generated password
+  
 
   //variables for password options
   var low = false;
@@ -20,11 +24,13 @@
   var num = false;
   var spec = false;
   var length = 8;
-  var choices = [low, upp, num, spec, length];
+  var choices = [low, upp, num, spec, length]; //array containing each password option variable 
 
-  while (!choices.includes(true) || length <8 || length >128) {
+  //while loop to ensure that the user has selected at least one character set and a password of the required length
+  while (!choices.includes(true) || length <8 || length >128) { //check if the choices array has any true values (otherwise no char sets are selected)
   alert("Please select which characters to use for your password" +
         " Must include at least one set of characters");
+  //use window.confirm to store the user's choice for each charset as a boolean, update the choices array
   low = confirm("Use lowercase letters?");
   choices[0] = low;
   upp = confirm("Use uppercase letters?");
@@ -35,19 +41,14 @@
   choices[3] = spec;
   length = prompt("Enter length of password between 8" +
                   "and 128");
-  while (length <8 || length > 128) {
+  while (length <8 || length > 128) { //verify the length of the password. If out of bounds, prompt again
     length = prompt("Enter length of password between 8" +
                   " and 128 characters");
   }
   choices[4] = length;
   }
-
-  console.log("user choices");
-  console.log(choices);
-
-  var characterBank = [];
-  var randomPassword = "";
-  var characterSets = [lowerCharacters, upperCharacters, numericCharacters, specialCharacters];
+  
+  // function to generate and return a random password as a string
   var generatePassword = function() {
     for (var i = 0; i<choices.length-1; i++) {
       if (choices[i]) {
